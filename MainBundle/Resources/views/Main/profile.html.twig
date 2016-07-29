@@ -1,0 +1,269 @@
+
+{% extends 'MainBundle::base.html.twig' %}
+
+{% block body %}
+
+	<header>
+		<div class="top-head wrapper">
+			<div id="logo" class="col-md-2"><a href="{{ path('main_dashboard') }}"><img src="{{ asset('bundles/main/img/logo-black.png') }}" alt=""></a></div>
+			<div id="search"><span class="s-icon"><span class="icon-search"></span></span>
+				<input type="text" placeholder="Search">
+			</div>
+			<div id="head-user-tab">
+				<div class="dropdowns">
+					<li class="dropdown notif"><span id="notifPhone" data-toggle="dropdown"><span class="icon-phone"></span><span class="badge">4</span></span>
+						<ul aria-labelledby="notifPhone" class="dropdown-menu">...</ul>
+					</li>
+					<li class="dropdown notif"><span id="notifComms" data-toggle="dropdown"><span class="icon-notification"></span><span class="badge">2</span></span>
+						<ul aria-labelledby="notifComms" class="dropdown-menu">...					</ul>
+					</li>
+					<li class="dropdown">
+						<div id="profile" data-toggle="dropdown" class="user"><img src="{{ asset('bundles/main/img/t/1.jpg') }}" alt="...">
+							<div>
+								<h4>{{ user.firstname ~ ' ' ~ user.lastname }}</h4>Profile<span class="fa fa-angle-down"></span>
+							</div>
+						</div>
+						<ul aria-labelledby="profile" class="dropdown-menu">
+							<li>
+								<a href="{{ path('main_user_profile') }}">Edit</a>
+								<a href="{{ path('fos_user_security_logout') }}">Logout</a>
+							</li>
+						</ul>
+					</li>
+				</div>
+			</div>
+		</div>
+		<div class="wrapper">
+			<ul id="header-menu" class="active-bdr">
+				{% set dashboard_types = { 'home': false, 'nutrition': false, 'fitness': false, 'career': false, 'education': false, 'financial': false, 'life': false } %}
+				{% set active_link = app.request.get('aim') %}
+				{% for key, val in dashboard_types %}
+					{% set link = (active_link == key) ? true : false %}
+					{% set dashboard_types = dashboard_types|merge({ (key): link }) %}
+				{% endfor %}
+
+				<li data-color="#f15922" {{ (dashboard_types.home) ? 'class="active"'}}>
+					<a href="{{ path('main_dashboard', { aim: 'home' }) }}"><span class="icon-home"></span>Home</a>
+				</li>
+				<li data-color="#ffc107" {{ (dashboard_types.nutrition) ? 'class="active"'}}>
+					<a href="{{ path('main_dashboard', { aim: 'nutrition' }) }}"><span class="icon-nutrition"></span>Nutrition</a>
+				</li>
+				<li data-color="#ed145b" {{ (dashboard_types.fitness) ? 'class="active"'}}>
+					<a href="{{ path('main_dashboard', { aim: 'fitness' }) }}"><span class="icon-fitness"></span>Fitness</a>
+				</li>
+				<li data-color="#0016eb" {{ (dashboard_types.career) ? 'class="active"'}}>
+					<a href="{{ path('main_dashboard', { aim: 'career' }) }}"><span class="icon-career-adv"></span>Career Advancement</a>
+				</li>
+				<li data-color="#03a9f4" {{ (dashboard_types.education) ? 'class="active"'}}>
+					<a href="{{ path('main_dashboard', { aim: 'education' }) }}"><span class="icon-education"></span>Education</a>
+				</li>
+				<li data-color="#9c27b0" {{ (dashboard_types.financial) ? 'class="active"'}}>
+					<a href="{{ path('main_dashboard', { aim: 'financial' }) }}"><span class="icon-fin-management"></span>Financial Management</a>
+				</li>
+				<li data-color="#39b54a" {{ (dashboard_types.life) ? 'class="active"'}}>
+					<a href="{{ path('main_dashboard', { aim: 'life' }) }}"><span class="icon-life-wellness"></span>Life Wellness</a>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<div class="wrapper">
+		<div class="main-container">
+			<main>
+				<div class="user-info media">
+					{# <div class="media-left text-center"><img src="{{ asset('bundles/main/img/t/1-1.jpg') }}" alt=""> #}
+					<div class="media-left text-center"><img src="{{ path('main_user_profile_pic') }}" class="profile-pic" alt="">
+						<h4>{{ app.user.firstname ~ ' ' ~ app.user.lastname }}</h4>
+						<h6>{{ app.user.birthday|age }}</h6>
+						<h5>{{ app.user.status }}</h5>{# student, unemployed, Employed, self-employed, retired, other #}
+					</div>
+					<div class="media-body">
+						<ul class="nav nav-tabs subnavmenu">
+							<li class="active">
+								<a data-toggle="tab" href="#profile_details">Details</a>
+							</li>
+							<li>
+								<a data-toggle="tab" href="#profile_about_me">About Me</a>
+							</li>
+						</ul>
+
+						<div class="tab-content">
+							<div id="profile_details" class="tab-pane fade in active">
+								<div class="pull-right">Edit</div>
+								<dl>
+									<dt>Date of Birth</dt>
+									<dd>{{ (app.user.birthday is null) ? 'N/A' : app.user.birthday|date('m.d.Y') }}</dd>
+									<dt>Gender</dt>
+									<dd>{{ app.user.gender|capitalize|default('N/A') }}</dd>
+									<dt>Current city</dt>
+									<dd>{{ app.user.currentCity|default('N/A') }}{# Virginia, 5150 Earnest Bridge Suite 037 #}</dd>
+									<dt>Studied at</dt>
+									{% if app.user.userEduLocations|length > 0 %}
+										{% for eduLocation in app.user.userEduLocations %}
+											<dd>{{ eduLocation.institution }} {{ (eduLocation.institutionStatus is not null) ? ' (' ~ eduLocation.institutionStatus ~ ')' }}</dd>
+										{% endfor %}
+									{% else %}
+										{{ 'N/A' }}
+									{% endif %}
+								</dl>
+								<div>
+									<form action="{{ path('main_user_profile_pic_upload') }}" method="POST" enctype="multipart/form-data">
+										<input type="file" name="file" />
+										<input type="submit" name="submit" value="submit" />
+									</form>
+								</div>
+							</div>
+							<div id="profile_about_me" class="tab-pane fade">
+								{{ 'In progress...' }}
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+			</main>
+			<aside class="sidebar">
+				<div class="widget participants">
+					<h4>Participants</h4>
+					<div class="media">
+						<div class="media-left"><a href="#"><img src="{{ asset('bundles/main/img/t/1.jpg') }}" alt="..." class="media-object"></a></div>
+						<div class="media-body">
+							<h5 class="media-heading"><a href="#">Jonh Middleton</a></h5>
+							<div class="status online"></div>
+						</div>
+					</div>
+					<div class="media">
+						<div class="media-left"><a href="#"><img src="{{ asset('bundles/main/img/t/1.jpg') }}" alt="..." class="media-object"></a></div>
+						<div class="media-body">
+							<h5 class="media-heading"><a href="#">Jonh Middleton</a></h5>
+							<div class="status offline"></div>
+						</div>
+					</div>
+				</div>
+				<div class="widget notifications">
+					<h4>Notifications</h4>
+					<div class="media green">
+						<div class="media-left"><a href="#"><img src="{{ asset('bundles/main/img/t/1.jpg') }}" alt="..." class="media-object"></a></div>
+						<div class="media-body">
+							<h5 class="media-heading"><a href="#">Etiam Elit Vulputate Gravida Magna</a></h5>
+							<p>Check this article for your health realated goals.</p>
+							<div class="time"><span class="icon-time"></span>2 Days ago</div>
+							<div class="info"><span class="fa fa-star-o"></span><span class="icon-trash"></span></div>
+						</div>
+					</div>
+					<div class="media red">
+						<div class="media-body">
+							<h5 class="media-heading"><a href="#">Etiam Elit Vulputate Gravida Magna</a></h5>
+							<p>Check this article for your health realated goals.</p>
+							<div class="time"><span class="icon-time"></span>2 Days ago</div>
+							<div class="info"><span class="fa fa-star-o"></span><span class="icon-trash"></span></div>
+						</div>
+					</div>
+					<div class="media yellow">
+						<div class="media-left"><a href="#"><img src="{{ asset('bundles/main/img/t/1.jpg') }}" alt="..." class="media-object"></a></div>
+						<div class="media-body">
+							<h5 class="media-heading"><a href="#">Etiam Elit Vulputate Gravida Magna</a></h5>
+							<p>Check this article for your health realated goals.</p>
+							<div class="time"><span class="icon-time"></span>2 Days ago</div>
+							<div class="info"><span class="fa fa-star-o"></span><span class="icon-trash"></span></div>
+						</div>
+					</div>
+					<button class="view-all">View All</button>
+				</div>
+			</aside>
+		</div>
+	</div>
+	<footer></footer>
+	<div id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModal" class="modal fade">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true" class="fa fa-times"> </span></button>
+					<h4 class="modal-title"><img src="{{ asset('bundles/main/img/logo-black.png') }}" alt=""></h4>
+				</div>
+				<div class="modal-body">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="successRegist" tabindex="-1" role="dialog" aria-labelledby="successRegist" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true" class="fa fa-times"> </span></button>
+					<h4 class="modal-title"><img src="{{ asset('bundles/main/img/logo-black.png') }}" alt=""></h4>
+				</div>
+				<div class="modal-body">
+					<div class="text-center"><img src="{{ asset('bundles/main/img/congrats.png') }}" alt="">
+						<h2>Awesome !</h2>
+						<p>You are one step closer to your vision becoming a reality.</p>
+						<p>We will keep you posted on your journey</p>
+						<div class="share-btn">
+							<button class="fb"><i class="fa fa-facebook"></i><span>Share in Facebook</span></button>
+						</div>
+						<div class="share-btn">
+							<button class="tt"><i class="fa fa-twitter"></i><span>Share in Twitter</span></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="track-progress" tabindex="-1" role="dialog" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body active-bg">
+					<button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true" class="fa fa-times"> </span></button>
+					<h2>Track Progress</h2>
+					<h4>Progress on my Top Aims</h4>
+					<ul class="nav nav-pills nav-justified">
+						<li data-color="#ffc107" class="active"><a href="#nutrition" data-toggle="tab"><span class="icon-nutrition"></span></a></li>
+						<li data-color="#ed145b"><a href="#fitness" data-toggle="tab"><span class="icon-fitness"></span></a></li>
+						<li data-color="#0016eb"><a href="#career-adv" data-toggle="tab"><span class="icon-career-adv"></span></a></li>
+						<li data-color="#03a9f4"><a href="#education" data-toggle="tab"><span class="icon-education"></span></a></li>
+						<li data-color="#9c27b0"><a href="#fin-management" data-toggle="tab"><span class="icon-fin-management"></span></a></li>
+						<li data-color="#39b54a"><a href="#life-wellness" data-toggle="tab"><span class="icon-life-wellness"></span></a></li>
+					</ul>
+					<h4>Progress on my Top Aims</h4>
+					<div class="tab-content">
+						<ul id="nutrition" class="tab-pane active do-now-items">
+							<li class="active">01. Add New Notes to your Career</li>
+							<li>02. Read the Articles on Health</li>
+							<li>03. Talk to the Guy on special days</li>
+							<li>04. Upload a Video for my websit...</li>
+						</ul>
+						<ul id="fitness" class="tab-pane do-now-items">
+							<li class="active">1. Add New Notes to your Career</li>
+							<li>2. Read the Articles on Health</li>
+							<li>3. Talk to the Guy on special days</li>
+							<li>4. Upload a Video for my websit...</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% block javascripts %}
+		{% javascripts filter="?jsqueeze" output="js/ejs.js"
+			'@MainBundle/Resources/public/js/ejs_production.js'
+		%}<script src="{{ asset_url }}"></script>
+		{% endjavascripts %}
+
+		<script type="text/javascript">
+			var article_template;
+			article_template = "{{ asset('bundles/main/templates/article.ejs') }}";
+		</script>
+	{% endblock %}
+
+{#
+<div class="body-links">
+	<a href="{{ path('fos_user_security_login') }}">login</a>
+	<a href="{{ path('fos_user_registration_register') }}">register</a>
+	<a href="{{ path('fos_user_profile_show') }}">profile</a>
+	<a href="{{ path('fos_user_security_logout') }}">logout</a>
+	<br />
+	<br />
+</div>
+#}
+
+{% endblock %}

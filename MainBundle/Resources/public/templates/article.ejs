@@ -1,0 +1,46 @@
+<li class="media article" data-id="<%= data.id %>">
+	<div class="media-left"><img src="<%= data.user_pic %>" style="width: 48px; height: 48px" alt="..." class="avatar"></div>
+	<div class="media-body">
+
+		<% var visioner = (data.user_id != data.vision_person_id) ? data.vision_person_name : '' %>
+		<% var visioner = (visioner && data.vision_person_url) ? '<span>to </span><a href="' + data.vision_person_url + '">' + visioner + '</a>' : '' %>
+
+		<% var vision_addition = (data.vision_person_name) ? '<span>to</span> ' + data.vision_person_name : '' %>
+		<h5><%= data.fullname %> <span>posted on <%= data.type %></span> <%= visioner %></h5>
+		<div class="time"><span class="icon-time"></span><%= data.createdAgo %></div>
+		<div class="media">
+			<div class="media-body media-content">
+				<h4><%= data.title %></h4>
+				<% var vision_remaining_status = (data.vision_timer_remaining && data.vision_timer_remaining == 'Expired') ? 'red' : 'green' %>
+				<p><%= data.content %></p>
+				<% if (data.image) { %>
+				<img src="<%= data.image %>" class="media-object">
+				<% } %>
+				<div class="post-panel">
+					<% if (data.vision_timer_remaining) { %>
+						<span class="panel-btn fa fa-heart-o"></span>
+						<span class="status <%= vision_remaining_status %>"></span>
+						<span><%= data.vision_timer_remaining %></span>
+					<% } %>
+					<a href="#comments" class="panel-btn view-comments" data-post="<%= data.id %>"><span class="icon-notification"></span> Leave a Comment</a>
+
+					<% if (uid != data.user_id) { %>
+						<a data-aim="<%= data.aim %>" data-user-id="<%= data.user_id %>" href="#reply" class="panel-btn view-reply-body" data-post="<%= data.id %>" data-toggle="modal" data-target="#dashboardPostReply"><span class="fa fa-reply"></span> Reply</a>
+						<% var favClass = (data.favorite == true) ? 'favorite-ok' : '' %>
+						<span class="panel-btn favorite-btn <%= favClass %>" data-id="<%= data.id %>"><span class="fa fa-star-o"></span> Favorite</span>
+					<% } %>
+					<a href="https://www.facebook.com/sharer/sharer.php?u=http://iaim.varunlabs.com<%= data.url %>" class="panel-btn " target="_blank" ><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+					<a href="https://twitter.com/home?status=<%= data.title %> http://iaim.varunlabs.com<%= data.url %>" class="panel-btn " target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+				</div>
+				<div class="comments media-list" data-post="<%= data.id %>">
+					<div class="input-group leave-comment">
+						<textarea placeholder="Write a comment" class="form-control"></textarea>
+						<div class="input-group-btn"> 
+							<button class="btn btn-link save-comment">Send</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</li>

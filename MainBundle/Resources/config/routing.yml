@@ -1,0 +1,92 @@
+main_startpage:
+    path:     /
+    defaults: { _controller: MainBundle:Main:startpage }
+
+main_user_profile:
+    path:     /dashboard/profile
+    defaults: { _controller: MainBundle:Main:userProfile }
+
+main_user_profile_pic:
+    path:     /dashboard/profile/{username}/profile.pic
+    defaults: { _controller: MainBundle:Main:viewUserProfilePic, username: me }
+    options:
+        expose: true
+
+main_user_profile_pic_upload:
+    path:     /dashboard/profile/upload
+    defaults: { _controller: MainBundle:Main:uploadUserProfilePic }
+
+main_dashboard:
+    path:     /dashboard/{aim}/{type}
+    defaults: { _controller: MainBundle:Main:dashboard, username: null, aim: home, type: all }
+    requirements:
+        aim:  home|nutrition|fitness|career|education|financial|life
+        type: all|note|vision|question|article|group
+
+main_dashboard_index:
+    path:     /dashboard/{username}/{aim}/{type}/{postId}
+    defaults: { _controller: MainBundle:Main:dashboard, aim: home, type: all, postId: null }
+    requirements:
+        aim:  home|nutrition|fitness|career|education|financial|life
+        type: all|note|vision|question|article|group
+
+main_dashboard_more_posts:
+    path:     /dashboard/{aim}/{type}/load-more
+    defaults: { _controller: MainBundle:Main:ajaxLoadMorePosts, aim: home, type: all }
+    requirements:
+        aim:  home|nutrition|fitness|career|education|financial|life
+        type: all|note|vision|question|article|group
+    options:
+        expose: true
+
+main_user_post:
+    path:     /dashboard/{username}/{postId}
+    defaults: { _controller: MainBundle:Main:viewUserPost }
+
+main_user_get_post_comments:
+    path:     /post/{postId}/comments
+    defaults: { _controller: MainBundle:Main:getUserPostComments }
+    options:
+        expose: true
+
+main_user_save_post_comment:
+    path:     /post/{postId}/comment
+    defaults: { _controller: MainBundle:Main:saveUserPostComment }
+    options:
+        expose: true
+
+main_ajax_post:
+    path:     /post
+    defaults: { _controller: MainBundle:Main:ajaxPost }
+
+main_user_friends:
+    path:     /user/friends.json
+    defaults: { _controller: MainBundle:Main:ajaxUserFriendsJson }
+    options:
+        expose: true
+
+main_dashboard_view_image:
+    path:     /uploads/{path}
+    defaults: { _controller: MainBundle:Main:viewImageWebPath }
+
+main_register:
+    path:     /register
+    defaults: { _controller: MainBundle:Main:register }
+
+main_get_notifications:
+    path:     /notifications/{lastId}/{limit}
+    defaults: { _controller: MainBundle:Main:getUserNotifications }
+    options:
+        expose: true
+
+main_delete_notification:
+    path:     /notification/{notificationId}/delete
+    defaults: { _controller: MainBundle:Main:deleteUserNotification }
+    options:
+        expose: true
+
+main_favorite_post:
+    path:     /post/{postId}/favorite
+    defaults: { _controller: MainBundle:Main:ajaxPostFavorite }
+    options:
+        expose: true

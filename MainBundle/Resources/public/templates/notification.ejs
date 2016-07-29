@@ -1,0 +1,10 @@
+<% var vision_remaining_status = (data.vision_timer_d == 'Expired') ? 'red' : 'green' %>
+<div class="media <%= vision_remaining_status %>" data-id="<%= data.id %>">
+    <div class="media-left"><a href="#"><img src="<%= data.user_pic %>" style="width: 48px; height: 48px;" alt="..." class="media-object"></a></div>
+    <div class="media-body">
+        <h5 class="media-heading"><a href="#"><%= data.title %></a></h5>
+        <p><%= data.content %></p>
+        <div class="time"><span class="icon-time"></span><%= data.created_on_d %></div>
+        <div class="info"><span class="fa fa-star-o"></span><span class="icon-trash remove-notification"></span></div>
+    </div>
+</div>

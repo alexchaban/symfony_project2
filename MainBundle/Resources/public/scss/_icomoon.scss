@@ -1,0 +1,74 @@
+@font-face {
+	font-family: 'icomoon';
+	src:    url('fonts/icomoon.eot?hxpdn3');
+	src:    url('fonts/icomoon.eot?hxpdn3#iefix') format('embedded-opentype'),
+			url('fonts/icomoon.ttf?hxpdn3') format('truetype'),
+			url('fonts/icomoon.woff?hxpdn3') format('woff'),
+			url('fonts/icomoon.svg?hxpdn3#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'icomoon' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-calendar:before {
+	content: "\e900";
+}
+.icon-career-adv:before {
+	content: "\e901";
+}
+.icon-education:before {
+	content: "\e902";
+}
+.icon-fin-management:before {
+	content: "\e903";
+}
+.icon-fitness:before {
+	content: "\e904";
+}
+.icon-home:before {
+	content: "\e905";
+}
+.icon-life-wellness:before {
+	content: "\e906";
+}
+.icon-notification:before {
+	content: "\e907";
+}
+.icon-nutrition:before {
+	content: "\e908";
+}
+.icon-permalink:before {
+	content: "\e909";
+}
+.icon-phone:before {
+	content: "\e90a";
+}
+.icon-photo-cam:before {
+	content: "\e90b";
+}
+.icon-search:before {
+	content: "\e90c";
+}
+.icon-time:before {
+	content: "\e90d";
+}
+.icon-trash:before {
+	content: "\e90e";
+}
+.icon-video-cam:before {
+	content: "\e90f";
+}
+

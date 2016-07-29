@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		{% stylesheets filter="scssphp" output="css/style.css"
+			"@MainBundle/Resources/public/scss/style.scss"
+			'@MainBundle/Resources/public/js/EasyAutocomplete-1.3.5/easy-autocomplete.min.css'
+			'@MainBundle/Resources/public/js/datetimepicker-master/build/jquery.datetimepicker.min.css'
+		%}
+			<link rel="stylesheet" href="{{ asset_url }}" />
+		{% endstylesheets %}
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700,600italic,400italic,700italic">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amaranth:700,400">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+	</head>
+	<body>
+		<header class="cover">
+			<div id="header">
+				<div class="wrapper">
+					<div id="logo"><a href="{{ path('main_startpage') }}"><img src="{{ asset('bundles/main/img/logo-black.png') }}" alt=""></a></div>
+					<nav>
+						<div class="account"><a class="login">Log In</a><a data-toggle="modal" data-target="#signUpModal" class="signup">Sign Up</a></div>
+						<ul>
+							<li class="active"><a href="#">About Us</a></li>
+							<li><a href="#">How It Works</a></li>
+							<li><a href="#">Contact Us</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div><img src="{{ asset('bundles/main/img/illustration.jpg') }}" alt="" class="cover-img cover-right">
+			<div class="header-info">
+				<div class="row">
+					<div class="col-md-9">
+						<h2>What Will The Future Really Look Like?</h2>
+						<p>Let's AIM today!</p>
+						<button class="btn btn-lg btn-primary">Watch Video</button>
+					</div>
+				</div>
+			</div>
+		</header>
+		<section id="four-blocks">
+			<div class="wrapper">
+				<div class="flex">
+					<div class="column"><img src="{{ asset('bundles/main/img/first-page/a1.png') }}" alt="">
+						<h4>Vision</h4>
+						<div class="hidde">Jopa</div>
+					</div>
+					<div class="column"><img src="{{ asset('bundles/main/img/first-page/a2.png') }}" alt="">
+						<h4>Questions</h4>
+						<div class="hidde">What are you aiming for Today, goals dreams fringilla donec.</div>
+					</div>
+					<div class="column"><img src="{{ asset('bundles/main/img/first-page/a3.png') }}" alt="">
+						<h4>Contribute</h4>
+						<div class="hidde">Jopa</div>
+					</div>
+					<div class="column"><img src="{{ asset('bundles/main/img/first-page/a4.png') }}" alt="">
+						<h4>Encouraging Support</h4>
+						<div class="hidde">Jopa</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="reasons-sp">
+			<div class="wrapper">
+				<div class="vertical-middle">
+					<div class="column"><span class="abs-number">01</span><img src="{{ asset('bundles/main/img/reasons/reas-01.png') }}" alt="">
+						<h3 class="r">Create <br>The Vision</h3>
+						<p>What are you aiming for Today, goals dreams. Your are not alone in the journey, you will get help from your community of friends.</p>
+					</div>
+					<div class="column"><img src="{{ asset('bundles/main/img/first-page/01.png') }}" alt="" class="img-shadow"></div>
+				</div>
+			</div>
+			<div class="vertical-middle">
+				<div class="column"><img src="{{ asset('bundles/main/img/first-page/02.png') }}" alt="" class="img-shadow"></div>
+				<div class="column"><span class="abs-number">02</span><img src="{{ asset('bundles/main/img/reasons/reas-02.png') }}" alt="">
+					<h3 class="r">Receive daily <br>Encouragement &amp; <br>Support.</h3>
+					<p>Your Vision is an Action plan, now it's iAiM job to Encourage you daily and keep you on target to accomplish your Vision.</p>
+				</div>
+			</div>
+			<div class="wrapper">
+				<div class="vertical-middle">
+					<div class="column"><span class="abs-number">03</span><img src="{{ asset('bundles/main/img/reasons/reas-03.png') }}" alt="">
+						<h3 class="r">Resources you <br>need comes directly <br>to you....</h3>
+						<p>Save time from spending countless hours surfing various websites, apps,and books.	iAiM is the ONE-STOP-SOURCE for your personal growth.</p>
+						<p>The Expert resources and tips will come directly to your dashboard to keep you on target to greatness.</p>
+					</div>
+					<div class="column"><img src="{{ asset('bundles/main/img/first-page/03.png') }}" alt=""></div>
+				</div>
+			</div>
+			<div class="wrapper">
+				<div class="vertical-middle">
+					<div class="column"><img src="{{ asset('bundles/main/img/first-page/04.png') }}" alt="" class="img-shadow"></div>
+					<div class="column"><span class="abs-number">04</span><img src="{{ asset('bundles/main/img/reasons/reas-04.png') }}" alt="">
+						<h3 class="r">Finally</h3>
+						<p>Congrats !! Your Vision is now becoming a Reality and because our users " Aimers" never stop Aiming for growth,iAiM is here to support you conquer your next Vision. </p>
+						<p>Aimers are constantly growing ,so keep Aiming in other areas in your life.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+			{{ render(controller('FOSUserBundle:Security:login')) }}
+
+			{#
+			<form>
+				<div class="form-group">
+					<label for="gs-name">Your Name</label>
+					<input id="gs-name" type="text" name="gs-name" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="gs-pass">Password</label>
+					<input id="gs-pass" type="password" name="gs-pass" class="form-control">
+				</div>
+				<p class="pull-right">Forgot <a href="#">Password</a>?</p>
+				<p>Don't have an <a href="#">Account</a>?</p>
+				<button class="btn btn-primary btn-lg btn-block">Log In</button>
+			</form>
+			#}
+
+		<div id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModal" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-body">
+					<h2 class="text-center">Sign Up</h2>
+					{{ render(url('main_register')) }}
+				</div>
+			</div>
+		</div>
+		<footer>
+			<footer>
+				<div class="wrapper">
+					<div class="row">
+						<div class="col-md-3"><a href="#" class="footer-logo"><img src="{{ asset('bundles/main/img/logo-black.png') }}" alt=""></a></div>
+						<div class="col-md-9">
+							<ul class="menu">
+								<li><a href="#"><span class="fa fa-facebook"></span></a></li>
+								<li><a href="#"><span class="fa fa-twitter"></span></a></li>
+							</ul>
+							<ul class="menu">
+								<li><a href="#">About us</a></li>
+								<li><a href="#">How It Works</a></li>
+								<li><a href="#">Contact Us</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</footer>
+			<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+			{% javascripts filter="?jsqueeze" output="js/app.js"
+				"@MainBundle/Resources/public/js/bootstrap.min.js"
+				"@MainBundle/Resources/public/js/scripts.js"
+			%}
+				<script src="{{ asset_url }}"></script>
+			{% endjavascripts %}
+	</body>
+</html>
+
+{#
+<div class="body-links">
+	<a href="{{ path('fos_user_security_login') }}">login</a>
+	<a href="{{ path('fos_user_registration_register') }}">register</a>
+	<a href="{{ path('fos_user_profile_show') }}">profile</a>
+	<a href="{{ path('fos_user_security_logout') }}">logout</a>
+	<br />
+	<br />
+</div>
+#}
